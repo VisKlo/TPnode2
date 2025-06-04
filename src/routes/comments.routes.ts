@@ -8,7 +8,7 @@ router.get('/', controller.getAll)
 
 router.get('/:id', controller.get)
 
-router.post('/', isAuthenticated, controller.create)
+router.post("/", isAuthenticated, controller.create)
 
 router.put('/:id', isAuthenticated, controller.update)
 
