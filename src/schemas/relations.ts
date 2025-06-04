@@ -1,27 +1,30 @@
 import { relations } from "drizzle-orm";
 import { users, comments, movies, categories } from "./";
 
-export const userRelations = relations(users, ({ many }) => ({
+export const usersRelations = relations(users, ({ many }) => ({
     comments: many(comments)
 }));
 
-export const commentRelations = relations(comments, ({ one }) => ({
+export const commentsRelations = relations(comments, ({ one }) => ({
     user: one(users, {
         fields: [comments.authorId],
         references: [users.id]
     }),
 
-    post: one(movies, {
+    movie: one(movies, {
         fields: [comments.movieId],
         references: [movies.id]
     })
 }));
 
-export const movieRelation = relations(movies, ({ one, many }) => ({
+export const moviesRelation = relations(movies, ({ one, many }) => ({
     comments: many(comments),
-    categories: many(categories)
+    categories: one(categories, {
+        fields: [movies.category_id],
+        references: [categories.id],
+    }),
 }))
 
-export const categoryRelation = relations(categories, ({ many }) => ({
+export const categoriesRelation = relations(categories, ({ many }) => ({
     movies: many(movies)
 }))
