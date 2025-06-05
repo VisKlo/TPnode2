@@ -1,6 +1,6 @@
 # API RESTful - Films, Commentaires, Utilisateurs & Catégories
 
-Une API RESTful complète en **Node.js / TypeScript** avec **Express**, **Drizzle**, **Zod** et **PostgreSQL** pour gérer des films, leurs catégories, les commentaires des utilisateurs, et l’authentification.
+Une API RESTful en **Node.js / TypeScript** avec **Express**, **Drizzle**, **Zod** et **PostgreSQL** pour gérer des films, leurs catégories, les commentaires des utilisateurs, et l’authentification.
 
 ---
 
@@ -90,8 +90,6 @@ Une API RESTful complète en **Node.js / TypeScript** avec **Express**, **Drizzl
 ```bash
 npm run dev
 ```
-
-Accès sur : `http://localhost:3000`
 
 ---
 
