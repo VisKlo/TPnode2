@@ -10,8 +10,4 @@ router.get('/:id', controller.get)
 
 router.post('/', isAuthenticated, controller.create)
 
-router.put('/:id', isAuthenticated, controller.update)
-
-router.delete('/:id', isAuthenticated, controller.delete)
-
 export default router

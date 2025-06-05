@@ -4,10 +4,10 @@ import { APIResponse } from "../utils/response";
 import { logger } from "../utils/logger";
 
 const moviesController = {
-    getAll: (req: Request, res: Response) => {
+    getAll: async (req: Request, res: Response) => {
         try {
             logger.info("[GET] Tous les films");
-            const movies = moviesModel.getAll();
+            const movies = await moviesModel.getAll();
             APIResponse(res, movies, "OK");
         } catch (err: any) {
             logger.error(err.message);
@@ -15,10 +15,10 @@ const moviesController = {
         }
     },
 
-    get: (req: Request, res: Response) => {
+    get: async (req: Request, res: Response) => {
         try {
             logger.info("[GET] Un film");
-            const movie = moviesModel.get(req.params.id);
+            const movie = await moviesModel.get(req.params.id);
             APIResponse(res, movie, "OK");
         } catch (err: any) {
             logger.error(err.message);
@@ -63,10 +63,10 @@ const moviesController = {
         }
     },
 
-    delete: (req: Request, res: Response) => {
+    delete: async (req: Request, res: Response) => {
         try {
             logger.info("[DELETE] Supprimer un film");
-            moviesModel.delete(req.params.id);
+            await moviesModel.delete(req.params.id);
             APIResponse(res, null, "Supprimé", 200);
         } catch (err: any) {
             logger.error(err.message);

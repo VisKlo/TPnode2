@@ -20,7 +20,7 @@ export const commentsRelations = relations(comments, ({ one }) => ({
 export const moviesRelation = relations(movies, ({ one, many }) => ({
     comments: many(comments),
     categories: one(categories, {
-        fields: [movies.category_id],
+        fields: [movies.categoryId],
         references: [categories.id],
     }),
 }))

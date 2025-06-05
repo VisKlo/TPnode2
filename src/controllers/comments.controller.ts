@@ -2,12 +2,14 @@ import { Request, Response } from "express"
 import { commentsModel } from "../models/"
 import { APIResponse } from "../utils/response"
 import { logger } from "../utils/logger"
+import { createCommentValidation } from "../validations"
+import { z } from "zod";
 
 const commentsController = {
-    getAll: (req: Request, res: Response) => {
+    getAll: async (req: Request, res: Response) => {
         try {
             logger.info("[GET] Tous les commentaires")
-            const comments = commentsModel.getAll()
+            const comments = await commentsModel.getAll()
             APIResponse(res, comments, "OK")
         } catch (err: any) {
             logger.error(err.message)
@@ -15,10 +17,10 @@ const commentsController = {
         }
     },
 
-    get: (req: Request, res: Response) => {
+    get: async (req: Request, res: Response) => {
         try {
             logger.info("[GET] Un commentaire")
-            const comment = commentsModel.get(req.params.id)
+            const comment = await commentsModel.get(req.params.id)
             APIResponse(res, comment, "OK")
         } catch (err: any) {
             logger.error(err.message)
@@ -26,21 +28,30 @@ const commentsController = {
         }
     },
 
-    create: (req: Request, res: Response) => {
+    create: async (req: Request, res: Response) => {
         try {
-            logger.info("[POST] Créer un commentaire")
-            const authorId = res.locals.user.id
+            logger.info("[POST] Créer un commentaire");
+
+            const { content, movieId } = createCommentValidation.parse(req.body);
+            const authorId = res.locals.user.id;
+
             const newComment = {
-                ...req.body,
+                content,
+                movieId,
                 authorId,
-            }
-            const comment = commentsModel.create(newComment)
-            APIResponse(res, comment, "Créé", 201)
+            };
+
+            const comment = await commentsModel.create(newComment);
+            APIResponse(res, comment, "Créé", 201);
         } catch (err: any) {
-            logger.error(err.message)
-            APIResponse(res, null, "Erreur", 500)
+            logger.error(err.message);
+            if (err instanceof z.ZodError) {
+                return APIResponse(res, err.errors, "Le formulaire est invalide", 400)
+            }
+            APIResponse(res, null, "Erreur", 500);
         }
     },
+
 
     update: async (req: Request, res: Response) => {
         try {
@@ -63,10 +74,10 @@ const commentsController = {
         }
     },
 
-    delete: (req: Request, res: Response) => {
+    delete: async (req: Request, res: Response) => {
         try {
             logger.info("[DELETE] Supprimer un commentaire")
-            commentsModel.delete(req.params.id)
+            await commentsModel.delete(req.params.id)
             APIResponse(res, null, "Supprimé", 200)
         } catch (err: any) {
             logger.error(err.message)

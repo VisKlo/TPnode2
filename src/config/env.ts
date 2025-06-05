@@ -17,4 +17,5 @@ export const env: EnvConfig = {
     ORIGIN: process.env.ORIGIN || "http://localhost:5173",
     DATABASE_URL: requireEnv("DATABASE_URL"),
     JWT_SECRET: requireEnv("JWT_SECRET")
+    
 }

@@ -9,7 +9,7 @@ export const moviesModel = {
     try {
       return await db.query.movies.findMany({
         with: {
-          category: {
+          categories: {
             columns: { id: true, content: true }
           }
         }
@@ -33,7 +33,7 @@ export const moviesModel = {
               createdAt: true
             }
           },
-          category: {
+          categories: {
             columns: { id: true, content: true }
           }
         }
