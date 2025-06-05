@@ -24,17 +24,6 @@ const usersController = {
             logger.error(error.message)
             APIResponse(res, null, "Erreur", 500)
         }
-    },
-
-    create: async (req: Request, res: Response) => {
-        try {
-            logger.info("[POST] Créer un utilisateur")
-            const newUser = await userModel.create(req.body)
-            APIResponse(res, newUser, "Créé", 201)
-        } catch (error: any) {
-            logger.error(error.message)
-            APIResponse(res, null, "Erreur", 500)
-        }
     }
 }
 export default usersController
