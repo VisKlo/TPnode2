@@ -25,12 +25,14 @@ Une API RESTful en **Node.js / TypeScript** avec **Express**, **Drizzle**, **Zod
 ├── src
 │   ├── config          # Configuration Drizzle, DB, .env
 │   ├── controllers     # Logique métier des routes
-│   ├── entities        # Types/Interfaces Zod & TS
-│   ├── middlewares     # Auth / validation / erreurs
+│   ├── entities        # Définit types TypeScript depuis schéma Drizzle
+│   ├── middlewares     # Auth / Logger
 │   ├── models          # Accès DB via Drizzle
 │   ├── routes          # Routes express
-│   ├── schemas         # Schémas drizzle
-│   ├── utils           # Logger, réponse API, hash password
+│   ├── schemas         # Schémas DB drizzle
+|   ├── types           # Définit la structure du .env
+│   ├── utils           # Gestion logger, réponse API, hash password
+│   ├── validations     # Valide les données envoyées selon les conditions définies
 │   └── server.ts       # Point d'entrée de l'application
 ├── .env
 ├── tsconfig.json
@@ -45,7 +47,6 @@ Une API RESTful en **Node.js / TypeScript** avec **Express**, **Drizzle**, **Zod
 | Commande           | Description                                               |
 |--------------------|-----------------------------------------------------------|
 | `npm run dev`      | Lancer le serveur en mode développement                   |
-| `npm start`        | Lancer le serveur compilé (`dist/server.js`)              |
 | `npm run generate` | Générer les fichiers avec Drizzle                         |
 | `npm run migrate`  | Appliquer une migration avec tsx                          |
 | `npm run studio`   | Lancer l'interface graphique Drizzle Studio               |
