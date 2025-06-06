@@ -31,7 +31,7 @@ Une API RESTful en **Node.js / TypeScript** avec **Express**, **Drizzle**, **Zod
 │   ├── routes          # Routes express
 │   ├── schemas         # Schémas DB drizzle
 |   ├── types           # Définit la structure du .env
-│   ├── utils           # Gestion logger, réponse API, hash password
+│   ├── utils           # Gestion logger, réponse API, hash password, clear comments
 │   ├── validations     # Valide les données envoyées selon les conditions définies
 │   └── server.ts       # Point d'entrée de l'application
 ├── .env
