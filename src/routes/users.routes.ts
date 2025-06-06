@@ -8,6 +8,4 @@ router.get('/', controller.getAll)
 
 router.get('/:id', controller.get)
 
-router.post('/', isAuthenticated, controller.create)
-
 export default router
