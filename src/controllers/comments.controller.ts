@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { commentsModel } from "../models/"
 import { APIResponse } from "../utils/response"
-import { logger } from "../utils/logger"
+import { logger, sanitizeComment} from "../utils/"
 import { createCommentValidation } from "../validations"
 import { z } from "zod";
 
@@ -9,7 +9,8 @@ const commentsController = {
     getAll: async (req: Request, res: Response) => {
         try {
             logger.info("[GET] Tous les commentaires")
-            const comments = await commentsModel.getAll()
+            const commentsRaw = await commentsModel.getAll()
+            const comments = commentsRaw.map(sanitizeComment)
             APIResponse(res, comments, "OK")
         } catch (err: any) {
             logger.error(err.message)
@@ -20,8 +21,8 @@ const commentsController = {
     get: async (req: Request, res: Response) => {
         try {
             logger.info("[GET] Un commentaire")
-            const comment = await commentsModel.get(req.params.id)
-            APIResponse(res, comment, "OK")
+            const commentRaw = await commentsModel.get(req.params.id)
+            APIResponse(res, sanitizeComment(commentRaw), "OK")
         } catch (err: any) {
             logger.error(err.message)
             APIResponse(res, null, "Erreur", 500)
@@ -33,7 +34,7 @@ const commentsController = {
             logger.info("[POST] Créer un commentaire");
 
             const { content, movieId } = createCommentValidation.parse(req.body);
-            const authorId = res.locals.user.id;
+            const authorId = "4f1af65b-920d-4bb8-9f05-88cb1134c9af"
 
             const newComment = {
                 content,
@@ -59,7 +60,7 @@ const commentsController = {
 
             const { id } = req.params;
             const { content, movieId } = req.body;
-            const authorId = res.locals.user.id;
+            const authorId = "4f1af65b-920d-4bb8-9f05-88cb1134c9af"
 
             await commentsModel.update(id, {
                 authorId: authorId,
