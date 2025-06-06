@@ -97,8 +97,8 @@ npm run dev
 ## 🧪 Exemples de routes
 
 ### Auth
-- `POST /register`
-- `POST /login`
+- `POST /auth/register`
+- `POST /auth/login`
 
 ### Users
 - `GET /users`
